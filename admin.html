@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management</title>
+    <script src="Student.js"></script>
+    <script src="StudentManagement.js"></script>
+</head>
+<style>
+    img{
+        width: 80px;
+    }
+
+    #list-student{
+        width: 100%;
+    }
+
+    form#add-student {
+        width: 200px;
+    }
+    form input{
+        margin-bottom: 5px;
+    }
+</style>
+<body>
+<form id="add-student">
+    <fieldset>
+        <legend>Add Student</legend>
+        <input type="number" id="student-id" placeholder="Student ID">
+        <input type="text" id="student-name" placeholder="Student Name">
+        <input type="text" id="student-birthday" placeholder="Student Birthday">
+        <input type="text" id="student-gender" placeholder="Student Gender">
+        <input type="text" id="student-group" placeholder="Student Group">
+        <input type="text" id="student-address" placeholder="Student Address">
+        <input type="text" id="student-avt" placeholder="Student Avatar">
+        <button type="button" onclick="addStudent()">Add Student</button>
+        <button type="button" onclick="fillData()">Fill Data</button>
+    </fieldset>
+</form>
+<table id="list-student" border="1px"></table>
+<script>
+    let student = new Student(1,'Ngô Hiếu','21/02/1992','Male','C1020G2','Phố cổ','https://cdn.phunumoi.net.vn/files/tatdat/2020/09/11/hieuminhngo-1538.png')
+    let studentManage = new StudentManagement();
+    studentManage.add(student);
+
+    console.log(studentManage);
+
+    function display() {
+        let list = document.getElementById('list-student');
+        let str = studentManage.display();
+        list.innerHTML = str;
+    }
+
+    function addStudent() {
+        let id = getInput('student-id');
+        let name = getInput('student-name');
+        let birthday = getInput('student-birthday');
+        let gender = getInput('student-gender');
+        let group = getInput('student-group');
+        let address = getInput('student-address');
+        let avatar = getInput('student-avt');
+
+        let student = new Student(id,name,birthday,gender,group,address,avatar);
+        studentManage.add(student);
+        display();
+
+    }
+
+    function deleteStudent(index) {
+        studentManage.del(index);
+        display();
+    }
+
+    function getInput(id) {
+        return document.getElementById(id).value;
+    }
+
+    function setInput(id,value) {
+        document.getElementById(id).value = value;
+    }
+
+    function fillData() {
+        setInput('student-id',2);
+        setInput('student-name','Mừng');
+        setInput('student-birthday','10/10/1992');
+        setInput('student-gender','Boy');
+        setInput('student-group','C1020G2');
+        setInput('student-address','Quất Lâm');
+        setInput('student-avt','https://sohanews.sohacdn.com/thumb_w/660/2019/9/5/vu-khac-tiep-01-1567618125343372826559-crop-1567618615716509683727.jpg');
+    }
+
+    display();
+</script>
+</body>
+</html>
